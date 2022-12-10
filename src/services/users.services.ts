@@ -62,7 +62,7 @@ async function loginUser(username: string, password: string) {
     }
   })
   if (!user) {
-    throw new myCustomError(404, `username: ${username} cannot be found!`)
+    throw new myCustomError(500, `username: ${username} cannot be found!`)
   }
   if (user && user.password === password) {
     const {password, ...rest} = user
