@@ -4,6 +4,7 @@ const cors = require("cors")
 
 //routes
 const usersRouter = require('./routes/users.routes')
+import filesRouter from './routes/files.routes'
 
 const app: Application = express()
 
@@ -21,7 +22,8 @@ app.get("/", (req: Request, res: Response) => {
     res.json({message: "ok"})
 })
 
-app.use("/users", usersRouter)
+app.use("/users", usersRouter),
+app.use("/files", filesRouter)
 
 /* Error handler middleware */
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {

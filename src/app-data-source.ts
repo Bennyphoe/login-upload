@@ -1,6 +1,7 @@
 import { DataSource, Db } from "typeorm"
 import { User } from "./models/users/users.entity"
 import config from "./config"
+import { File } from "./models/files/files.entity"
 
 const {db} = config
 
@@ -11,7 +12,7 @@ const dataSource = new DataSource({
     username: db.user,
     password: db.password,
     database: db.database,
-    entities: [User],
+    entities: [User, File],
     synchronize: true,
 })
 

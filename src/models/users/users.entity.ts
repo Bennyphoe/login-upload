@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from "typeorm"
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm"
+import { File } from "../files/files.entity"
 
 @Entity()
 export class User {
@@ -13,4 +14,7 @@ export class User {
 
     @Column()
     password: string
+
+    @OneToMany(() => File, file => file.user)
+    images: File[]
 }
