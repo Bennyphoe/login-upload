@@ -15,6 +15,9 @@ export class User {
     @Column()
     password: string
 
-    @OneToMany(() => File, file => file.user)
-    images: File[]
+    @OneToMany(() => File, file => file.sender)
+    sentImages: File[]
+
+    @OneToMany(() => File, file => file.receiver)
+    receivedImages: File[]
 }

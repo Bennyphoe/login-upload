@@ -22,6 +22,16 @@ router.get('/:id', async (req: Request, res: Response, next: NextFunction) => {
     }
 })
 
+router.get('/username/:username', async (req: Request, res: Response, next: NextFunction) => {
+    const {username} = req.params
+    try {
+        res.status(201).json(await usersService.getUserByUsername(username))
+    } catch(err) {
+        console.log(`There was an error fetching the user with username: ${username}`)
+        next(err)
+    }
+})
+
 router.post('/', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const result = await usersService.createUser(req.body)

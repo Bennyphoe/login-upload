@@ -16,8 +16,14 @@ export class File {
     date: Date
 
     @Column()
-    userId: number
-    @ManyToOne(() => User, user => user.images)
-    @JoinColumn({name: 'userId'})
-    user: User
+    senderId: number
+    @ManyToOne(() => User, user => user.sentImages)
+    @JoinColumn({name: 'senderId'})
+    sender: User
+
+    @Column()
+    receiverId: number
+    @ManyToOne(() => User, user => user.receivedImages)
+    @JoinColumn({name: 'receiverId'})
+    receiver: User
 }

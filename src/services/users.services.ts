@@ -35,6 +35,18 @@ async function getUser(id: number): Promise<User> {
   }
 }
 
+async function getUserByUsername(username: string): Promise<User> {
+  try {
+    return await usersRepository.findOneOrFail({
+      where: {
+        username
+      }
+    })
+  } catch (error) {
+    throw new myCustomError(404, `user with username: ${username} cannot be found!`)
+  }
+}
+
 
 async function updateUser(id: number, updateUserDto: UpdateUserDto) {
   const userToUpdate = await getUser(id)
@@ -79,5 +91,6 @@ export default {
   getAllUsers,
   updateUser,
   deleteUser,
-  loginUser
+  loginUser,
+  getUserByUsername
 }

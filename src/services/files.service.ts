@@ -6,13 +6,14 @@ import usersServices from "./users.services";
 const filesRepository = dataSource.getRepository(File)
 
 async function createFile(createFileDto: CreateFileDto) {
-    const {caption, userId, name} = createFileDto
-    console.log(userId)
-    const user = await usersServices.getUser(userId)
+    const {caption, userId, name, receipientId} = createFileDto
+    const sender = await usersServices.getUser(userId)
+    const receipient = await usersServices.getUser(receipientId) 
     const newFile = filesRepository.create({
         caption,
         date: new Date(),
-        user,
+        sender,
+        receiver: receipient,
         name
     })
     return filesRepository.save(newFile)
@@ -33,7 +34,15 @@ async function findOne(id: number) {
 async function findAll(userId: number) {
   return await filesRepository.find({
     where: {
-      userId
+      senderId: userId
+    }
+  })
+}
+
+async function findAllReceived(receiverId: number) {
+  return await filesRepository.find({
+    where: {
+      receiverId
     }
   })
 }
@@ -47,5 +56,6 @@ export default {
   findOne,
   findAll,
   createFile,
-  deleteFile
+  deleteFile,
+  findAllReceived
 }
