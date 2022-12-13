@@ -35,6 +35,8 @@ async function findAll(userId: number) {
   return await filesRepository.find({
     where: {
       senderId: userId
+    }, relations: {
+      receiver: true
     }
   })
 }
@@ -43,6 +45,8 @@ async function findAllReceived(receiverId: number) {
   return await filesRepository.find({
     where: {
       receiverId
+    }, relations: {
+      sender: true
     }
   })
 }
